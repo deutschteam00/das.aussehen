@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aussehen – Hausaufgaben</title>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f6f9;--card:#fff;--ink:#17233a;--mute:#5b6980;--line:#d5dde7;--acc:#0e7c86;--accbg:#dff1f2;--ok:#1b7f3b;--okbg:#dcf3e2;--bad:#b3261e;--badbg:#fbe3e1;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1624;--card:#18223a;--ink:#e8eef8;--mute:#9aa8c0;--line:#2c3a58;--acc:#4fc3cc;--accbg:#14343b;--ok:#6fd48c;--okbg:#14301f;--bad:#ff8b82;--badbg:#3a1a1a}}
+:root[data-theme="dark"]{--bg:#0f1624;--card:#18223a;--ink:#e8eef8;--mute:#9aa8c0;--line:#2c3a58;--acc:#4fc3cc;--accbg:#14343b;--ok:#6fd48c;--okbg:#14301f;--bad:#ff8b82;--badbg:#3a1a1a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 "Source Sans 3",system-ui,sans-serif}
+header{padding:28px 20px 12px;max-width:860px;margin:0 auto}
+h1{font:700 clamp(28px,6vw,42px)/1.1 Bitter,Georgia,serif;margin:0 0 6px}
+header p{margin:0;color:var(--mute)}
+nav{display:flex;gap:6px;overflow-x:auto;padding:10px 20px;max-width:860px;margin:0 auto}
+nav button{flex:none;border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:7px 14px;font:inherit;font-size:15px;cursor:pointer}
+nav button[aria-selected=true]{background:var(--acc);border-color:var(--acc);color:#fff}
+nav button.done{border-color:var(--ok)}
+main{max-width:860px;margin:0 auto;padding:8px 20px 60px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+h2{font:700 24px/1.2 Bitter,Georgia,serif;margin:0 0 4px}
+.task{color:var(--mute);margin:0 0 18px}
+.tag{display:inline-block;font-size:14px;color:var(--acc);font-weight:600;margin-bottom:6px}
+button.b,select,textarea{font:inherit;color:var(--ink)}
+button.b{background:var(--acc);color:#fff;border:0;border-radius:10px;padding:9px 16px;cursor:pointer;font-weight:600}
+button.b.ghost{background:var(--accbg);color:var(--ink)}
+button:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0}
+.fc{min-height:150px;display:grid;place-items:center;text-align:center;border:2px dashed var(--line);border-radius:14px;font:700 28px Bitter,serif;padding:20px;cursor:pointer;background:var(--bg)}
+.fc small{display:block;font:400 15px "Source Sans 3",sans-serif;color:var(--mute);margin-top:6px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px}
+.m{border:1.5px solid var(--line);background:var(--card);border-radius:10px;padding:10px;text-align:left;font:inherit;color:var(--ink);cursor:pointer}
+.m.sel{border-color:var(--acc);background:var(--accbg)}
+.m.ok{border-color:var(--ok);background:var(--okbg);cursor:default}
+.m.no{border-color:var(--bad);background:var(--badbg)}
+.item{padding:12px 0;border-bottom:1px solid var(--line)}
+.item:last-child{border:0}
+.opts{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.opts button{border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:5px 11px;font:inherit;cursor:pointer}
+.opts button.ok,.chunk.ok{border-color:var(--ok);background:var(--okbg)}
+.opts button.no{border-color:var(--bad);background:var(--badbg)}
+select{padding:3px 6px;border:1.5px solid var(--line);border-radius:8px;background:var(--card)}
+select.ok{border-color:var(--ok);background:var(--okbg)}select.no{border-color:var(--bad);background:var(--badbg)}
+.fb{font-size:15px;margin-top:4px}.fb.ok{color:var(--ok)}.fb.no{color:var(--bad)}
+.build{min-height:48px;border:2px dashed var(--line);border-radius:10px;padding:6px;display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.chunk{border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:5px 11px;font:inherit;cursor:pointer}
+textarea{width:100%;min-height:90px;border:1.5px solid var(--line);border-radius:10px;padding:10px;background:var(--card);resize:vertical}
+.check{list-style:none;padding:0;margin:10px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:4px 16px;font-size:15px}
+.check li::before{content:"○ ";color:var(--mute)}.check li.y::before{content:"✓ ";color:var(--ok);font-weight:700}
+.hint{background:var(--accbg);border-radius:10px;padding:10px 14px;font-size:15px;margin:10px 0}
+.model{background:var(--okbg);border-radius:8px;padding:6px 10px;font-size:15px;margin-top:6px}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:no-preference){.m.no{animation:sh .25s}@keyframes sh{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}}
+</style>
+</head>
+<body>
+<header>
+<h1>Das Aussehen</h1>
+<p>Домашняя работа по теме «Внешность» · лексика урока и текст «Meine beste Freundin»</p>
+</header>
+<nav id="nav" role="tablist" aria-label="Задания"></nav>
+<main id="main"></main>
+<script>
+const $=s=>document.querySelector(s);
+const h=(t,p={},...k)=>{const e=document.createElement(t);for(const n in p){if(n==='class')e.className=p[n];else if(n.slice(0,2)==='on')e.addEventListener(n.slice(2),p[n]);else e.setAttribute(n,p[n])}k.flat().forEach(c=>e.append(c));return e};
+const shuf=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const V=[["die Nase: lang","длинный нос"],["die Nase: gerade","прямой нос"],["die Nase: spitz","острый нос"],["die Nase: zierlich","изящный нос"],["die Nase: gebogen","нос с горбинкой"],["die Stupsnase","курносый нос"],["die Lippen: schmal","узкие губы"],["die Lippen: voll","полные губы"],["die Lippen: dick","толстые губы"],["die Lippen: geschminkt","накрашенные губы"],["die Augen: ausdrucksvoll","выразительные глаза"],["die Augen: klar","ясные глаза"],["die Augen: glänzend","блестящие глаза"],["die Augen: rund","круглые глаза"],["die Stirn: hoch","высокий лоб"],["die Stirn: breit","широкий лоб"],["die Stirn: niedrig","низкий лоб"],["die Ohren: abstehend","оттопыренные уши"],["das Haar: schulterlang","волосы до плеч"],["das Haar: glatt","прямые, гладкие волосы"],["das Haar: lockig","кудрявые волосы"],["das Haar: wellig","волнистые волосы"],["das Haar: weich","мягкие волосы"],["das Haar: grau","седые волосы"],["schlank","стройный"],["gesellig","общительный"],["nachdenklich","задумчивый"],["hilfsbereit","отзывчивый"],["impulsiv","импульсивный"],["Sinn für Humor haben","иметь чувство юмора"],["die Haare färben","красить волосы"],["dem Charakter nach","по характеру"],["befreundet sein mit + D.","дружить с кем-либо"],["ähnlich sein","быть похожим"]];
+const S={};
+const tabs=[];
+function setScore(id,g,t){S[id]=[g,t];const b=document.querySelector('[data-id="'+id+'"]');b.textContent=tabs.find(x=>x.id===id).short+(t?' '+g+'/'+t:'');b.classList.toggle('done',g===t)}
+function head(tag,title,task){return [h('span',{class:'tag'},tag),h('h2',{},title),h('p',{class:'task'},task)]}
+function mark(btn,ok){btn.classList.add(ok?'ok':'no')}
+
+/* 1 Karten */
+tabs.push({id:'t1',short:'1 Karten',render(box){
+ let deck=shuf(V),known=0;const total=V.length;
+ const card=h('div',{class:'fc',tabindex:'0',role:'button'});let open=false;
+ const info=h('p',{class:'task'});
+ const draw=()=>{info.textContent='Выучено: '+known+' из '+total;setScore('t1',known,total);
+  if(!deck.length){card.textContent='Все карточки пройдены! 🎉';return}
+  card.innerHTML='';const c=deck[0];card.append(open?c[1]:c[0]);card.append(h('small',{},open?'Скажи вслух по-немецки: '+c[0]:'нажми, чтобы увидеть перевод'))};
+ card.onclick=()=>{open=!open;draw()};card.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();card.onclick()}};
+ const next=k=>{if(!deck.length)return;const c=deck.shift();if(k)known++;else deck.push(c);open=false;draw()};
+ box.append(...head('Controlled practice','Карточки','Прочитай немецкое выражение, вспомни перевод, переверни карточку и честно оцени себя.'),info,card,
+  h('div',{class:'row'},h('button',{class:'b',onclick:()=>next(1)},'Знаю'),h('button',{class:'b ghost',onclick:()=>next(0)},'Ещё раз'),h('button',{class:'b ghost',onclick:()=>{deck=shuf(V);known=0;open=false;draw()}},'Заново')));draw()}});
+
+/* 2 Zuordnen */
+tabs.push({id:'t2',short:'2 Paare',render(box){
+ const pick=shuf(V).slice(0,8);let L=null,done=0,err=0;
+ const info=h('p',{class:'task'});const g=h('div',{class:'grid2'});
+ const upd=()=>{info.textContent='Найдено пар: '+done+' из 8 · ошибок: '+err;setScore('t2',done,8)};
+ const lb=pick.map(p=>h('button',{class:'m'},p[0])),rb=shuf(pick).map(p=>h('button',{class:'m'},p[1]));
+ lb.forEach((b,i)=>b.onclick=()=>{if(b.classList.contains('ok'))return;lb.forEach(x=>x.classList.remove('sel'));L=i;b.classList.add('sel')});
+ rb.forEach(b=>b.onclick=()=>{if(L===null||b.classList.contains('ok'))return;const ok=pick[L][1]===b.textContent;
+  if(ok){b.classList.add('ok');lb[L].classList.remove('sel');lb[L].classList.add('ok');L=null;done++}else{err++;b.classList.add('no');setTimeout(()=>b.classList.remove('no'),500)}upd()});
+ const n=Math.max(lb.length,rb.length);for(let i=0;i<n;i++){g.append(lb[i]);}
+ const g2=h('div',{class:'grid2'});
+ box.append(...head('Controlled practice','Найди пары','Нажми на немецкое выражение, затем на его перевод.'),info,h('div',{class:'grid2'},h('div',{},lb.map(b=>h('div',{style:'margin-bottom:8px'},b))),h('div',{},rb.map(b=>h('div',{style:'margin-bottom:8px'},b)))),
+  h('div',{class:'row'},h('button',{class:'b ghost',onclick:()=>{box.innerHTML='';tabs[1].render(box)}},'Новый набор')));upd()}});
+
+/* 3 Körperteil */
+tabs.push({id:'t3',short:'3 Körperteil',render(box){
+ const P=['die Nase','die Lippen','die Augen','die Stirn','die Ohren','das Haar'];
+ const I=[['gebogen',[0],'с горбинкой'],['geschminkt',[1],'накрашенные'],['abstehend',[4],'оттопыренные'],['schulterlang',[5],'до плеч'],['niedrig',[3],'низкий'],['ausdrucksvoll',[2],'выразительные'],['zierlich',[0],'изящный'],['glänzend',[2],'блестящие'],['schmal',[1],'узкие'],['breit',[3],'широкий'],['lockig',[5],'кудрявые'],['spitz',[0,4],'острый / острые']];
+ let ok=0,n=0;const info=h('p',{class:'task'});
+ const box2=h('div');
+ I.forEach(it=>{let solved=false;const fb=h('div',{class:'fb'});const opts=h('div',{class:'opts'});
+  P.forEach((p,i)=>opts.append(h('button',{onclick:e=>{if(solved)return;const good=it[1].includes(i);
+   if(good){solved=true;mark(e.target,1);fb.className='fb ok';fb.textContent='Верно! '+it[0]+' — '+it[2];if(!it.w)ok++;info.textContent='Верно с первой попытки: '+ok+' из '+I.length;setScore('t3',ok,I.length)}
+   else{mark(e.target,0);fb.className='fb no';fb.textContent='Попробуй ещё раз';it.w=1}}},p)));
+  box2.append(h('div',{class:'item'},h('b',{},it[0]),opts,fb))});
+ info.textContent='Верно с первой попытки: 0 из '+I.length;
+ box.append(...head('Controlled practice','К какой части лица подходит слово?','Выбери существительное. Если подходят два варианта — выбери любой правильный.'),info,box2);
+ // fix first-try scoring: count only if no previous wrong
+ box2.querySelectorAll('.item').forEach((d,i)=>{d.addEventListener('click',()=>{},true)});
+ }});
+
+/* 4 Lückentext */
+tabs.push({id:'t4',short:'4 Lücken',render(box){
+ const bank=['gesellig','impulsiv','befreundet','wellig','Make-up','Sinn für Humor','färbt','schlank','ähnlich','trägt'];
+ const Q=[['Nicole hat viele Freunde und Bekannte, sie ist sehr ___.','gesellig'],['Meine Schwester ist nicht so ___ wie ich: sie überlegt immer zuerst.','impulsiv'],['Wir sind seit sechzehn Jahren ___.','befreundet'],['Marias Haare sind nicht glatt, sie sind ___.','wellig'],['Luisa benutzt kein ___.','Make-up'],['Herr Stern erzählt immer lustige Geschichten, er hat wirklich ___!','Sinn für Humor'],['Anna hat blonde Haare. Sie ___ ihre Haare nicht.','färbt'],['Mein Bruder ist 1,90 m groß und sehr ___.','schlank'],['Tim und sein Vater sind sich sehr ___: gleiche Nase, gleiche Augen.','ähnlich'],['Ihre Haare sind braun, sie ___ sie momentan kurz.','trägt']];
+ const sels=Q.map(q=>{const s=h('select',{'aria-label':'пропуск'},h('option',{value:''},'…'),shuf(bank).map(b=>h('option',{value:b},b)));return s});
+ const res=h('p',{class:'task'});
+ const list=h('div');Q.forEach((q,i)=>{const [a,b]=q[0].split('___');list.append(h('div',{class:'item'},a,sels[i],b))});
+ const chk=()=>{let g=0;sels.forEach((s,i)=>{s.classList.remove('ok','no');if(!s.value)return;const ok=s.value===Q[i][1];s.classList.add(ok?'ok':'no');if(ok)g++});res.textContent='Правильно: '+g+' из '+Q.length;setScore('t4',g,Q.length)};
+ box.append(...head('Controlled practice','Вставь подходящее слово','Каждое слово из рамки подходит только один раз.'),h('div',{class:'hint'},bank.join(' · ')),list,h('div',{class:'row'},h('button',{class:'b',onclick:chk},'Проверить'),res))}});
+
+/* 5 Richtig/Falsch */
+tabs.push({id:'t5',short:'5 R/F',render(box){
+ const Q=[['Julia und Peggy kennen sich aus der Schule.',1],['Peggy ist sehr klein.',0],['Ihre Augen sind dunkelbraun und ausdrucksvoll.',1],['Peggy hat lange Haare.',0],['Sie färbt ihre Haare oft.',0],['Peggy ist impulsiv und sehr gesellig.',0],['Peggy hat Sinn für Humor.',1],['Die Freundinnen wohnen im Studentenwohnheim.',1],['Das Wohnheim liegt weit von der Universität.',0],['Abends sitzen sie manchmal in einem Café.',1]];
+ let g=0;const info=h('p',{class:'task'},'Правильно: 0 из '+Q.length);const list=h('div');
+ Q.forEach(q=>{let d=false;const fb=h('div',{class:'fb'});const row=h('div',{class:'opts'});
+  [['Richtig',1],['Falsch',0]].forEach(o=>row.append(h('button',{onclick:e=>{if(d)return;d=true;const ok=o[1]===q[1];mark(e.target,ok);if(ok)g++;fb.className='fb '+(ok?'ok':'no');fb.textContent=ok?'Верно':'Неверно — правильный ответ: '+(q[1]?'Richtig':'Falsch');info.textContent='Правильно: '+g+' из '+Q.length;setScore('t5',g,Q.length)}},o[0])));
+  list.append(h('div',{class:'item'},q[0],row,fb))});
+ box.append(...head('Controlled practice','Richtig oder falsch?','Прочитай текст про Пегги (стр. 117–118) и оцени утверждения.'),info,list)}});
+
+/* 6 Satzbau */
+tabs.push({id:'t6',short:'6 Sätze',render(box){
+ const Q=[['Peggy hat dunkle, leicht wellige Haare.','Peggy|hat|dunkle,|leicht wellige|Haare.'],['Ihre Augen sind dunkelbraun und sehr ausdrucksvoll.','Ihre Augen|sind|dunkelbraun|und|sehr ausdrucksvoll.'],['Dem Charakter nach ist sie ruhig und nachdenklich.','Dem Charakter nach|ist|sie|ruhig|und|nachdenklich.'],['Sie färbt ihre Haare nicht und benutzt selten Make-up.','Sie|färbt|ihre Haare|nicht|und|benutzt|selten|Make-up.'],['Mein Freund hat eine gerade Nase und schmale Lippen.','Mein Freund|hat|eine gerade Nase|und|schmale Lippen.'],['Seine Ohren sind klein, aber seine Stirn ist hoch.','Seine Ohren|sind|klein,|aber|seine Stirn|ist|hoch.']];
+ let g=0;const info=h('p',{class:'task'},'Собрано: 0 из '+Q.length);const list=h('div');
+ Q.forEach(q=>{let done=false;const cur=[];const bd=h('div',{class:'build'}),pool=h('div',{class:'opts'}),fb=h('div',{class:'fb'});
+  const chunks=shuf(q[1].split('|'));
+  const render=()=>{bd.innerHTML='';pool.innerHTML='';cur.forEach((c,i)=>bd.append(h('button',{class:'chunk',onclick:()=>{if(done)return;cur.splice(i,1);render()}},c)));
+   chunks.filter((c,i)=>!cur.some(x=>x.i===i)).length;};
+  const used=[];const draw=()=>{bd.innerHTML='';pool.innerHTML='';used.forEach((i,k)=>bd.append(h('button',{class:'chunk',onclick:()=>{if(done)return;used.splice(k,1);draw()}},chunks[i])));
+   chunks.forEach((c,i)=>{if(!used.includes(i))pool.append(h('button',{class:'chunk',onclick:()=>{if(done)return;used.push(i);draw()}},c))});
+   if(used.length===chunks.length){const s=used.map(i=>chunks[i]).join(' ');if(s===q[0]){done=true;g++;bd.style.borderColor='var(--ok)';fb.className='fb ok';fb.textContent='✓ '+q[0];info.textContent='Собрано: '+g+' из '+Q.length;setScore('t6',g,Q.length)}else{fb.className='fb no';fb.textContent='Порядок слов не верный: глагол на втором месте. Нажми на блок, чтобы убрать его.'}}else fb.textContent=''};
+  draw();list.append(h('div',{class:'item'},bd,pool,fb))});
+ box.append(...head('Controlled → semi-controlled','Собери предложение','Нажимай на блоки в правильном порядке. Помни: в немецком предложении глагол стоит на втором месте.'),info,list)}});
+
+/* 7 Übersetzen */
+tabs.push({id:'t7',short:'7 Übersetzen',render(box){
+ const Q=[['У моей подруги длинные кудрявые каштановые волосы.','Haare, lang, lockig, braun',[/lang/,/lockig/,/braun/,/haare/],'Meine Freundin hat lange, lockige, braune Haare.'],['Он высокий и стройный, у него карие глаза.','groß, schlank, Augen',[/groß/,/schlank/,/augen/,/braun/],'Er ist groß und schlank und hat braune Augen.'],['У неё маленький изящный нос и полные губы.','klein, zierlich, voll',[/klein/,/zierlich/,/nase/,/voll/,/lippen/],'Sie hat eine kleine, zierliche Nase und volle Lippen.'],['По характеру она общительная и у неё есть чувство юмора.','dem Charakter nach, gesellig, Sinn für Humor',[/charakter/,/gesellig/,/sinn für humor/],'Dem Charakter nach ist sie gesellig und hat Sinn für Humor.'],['Мы не очень похожи, но дружим уже пять лет.','ähnlich, befreundet, seit',[/ähnlich/,/befreundet/,/seit/,/nicht/],'Wir sind nicht sehr ähnlich, aber wir sind seit fünf Jahren befreundet.']];
+ const list=h('div');const info=h('p',{class:'task'});let sc=Array(Q.length).fill(0);
+ Q.forEach((q,k)=>{const ta=h('textarea',{rows:'2','aria-label':'перевод'});const out=h('div');
+  const b=h('button',{class:'b',onclick:()=>{const t=ta.value.toLowerCase();const hit=q[2].filter(r=>r.test(t));const ok=hit.length===q[2].length&&t.trim().length>10;sc[k]=ok?1:0;
+   out.innerHTML='';out.append(h('div',{class:'fb '+(ok?'ok':'no')},ok?'✓ Все ключевые слова на месте':'Не хватает: '+q[2].filter(r=>!r.test(t)).map(r=>r.source.replace(/\\/g,'')).join(', ')),h('div',{class:'model'},'Образец: '+q[3]));
+   const g=sc.reduce((a,c)=>a+c,0);setScore('t7',g,Q.length)}},'Проверить');
+  list.append(h('div',{class:'item'},h('b',{},(k+1)+'. '+q[0]),h('div',{class:'task',style:'margin:2px 0 6px'},'Опора: '+q[1]),ta,h('div',{class:'row'},b),out))});
+ box.append(...head('Semi-controlled practice','Переведи на немецкий','Используй слова-подсказки. Программа проверяет ключевую лексику, а после проверки показывает образец — сравни со своим вариантом.'),list)}});
+
+/* 8 Beschreibung */
+tabs.push({id:'t8',short:'8 Schreiben',render(box){
+ const C=[['Größe / Figur',/groß|klein|meter|schlank|sportlich/],['Augen',/augen/],['Haare',/haar/],['Nase / Lippen / Stirn / Ohren',/nase|lippen|stirn|ohren/],['Charakter',/charakter|ruhig|gesellig|impulsiv|nachdenklich|spontan|freundlich|hilfsbereit|höflich|lustig/],['Sinn für Humor',/humor/],['Ähnlichkeit',/ähnlich/],['Seit wann befreundet / Hobby',/befreundet|seit |hobby|hobbys|gern/]];
+ const name=h('input',{placeholder:'Твоё имя',style:'padding:8px;border:1.5px solid var(--line);border-radius:8px;font:inherit;background:var(--card);color:var(--ink)','aria-label':'Имя'});
+ const ta=h('textarea',{rows:'8',style:'min-height:180px','aria-label':'Текст'});const cnt=h('p',{class:'task'});
+ const ul=h('ul',{class:'check'},C.map(c=>h('li',{},c[0])));
+ const upd=()=>{const t=ta.value.toLowerCase();let g=0;C.forEach((c,i)=>{const y=c[1].test(t);ul.children[i].classList.toggle('y',y);if(y)g++});const w=(ta.value.trim().match(/\S+/g)||[]).length;cnt.textContent='Слов: '+w+' (цель: 60+) · Пунктов плана: '+g+' из '+C.length;setScore('t8',g,C.length)};
+ ta.oninput=upd;
+ const fb=h('span',{class:'fb ok'});
+ const cp=h('button',{class:'b',onclick:async()=>{const txt='Name: '+name.value+'\n\n'+ta.value;try{await navigator.clipboard.writeText(txt);fb.textContent='Скопировано! Отправь учителю.'}catch(e){ta.select();fb.textContent='Выдели текст и скопируй вручную.'}}},'Скопировать для учителя');
+ box.append(...head('Semi-controlled practice','Опиши друга или подругу','Напиши связный текст (60+ слов) о человеке, которого хорошо знаешь. Следи за планом — пункты отмечаются автоматически.'),
+  h('div',{class:'hint'},'Опоры: Ich möchte über … erzählen. · Er/Sie ist … Meter … groß. · Seine/Ihre Augen sind … · Die Haare sind … · Dem Charakter nach ist er/sie … · Wir sind (nicht) ähnlich. · Wir sind seit … befreundet.'),
+  ul,ta,cnt,h('div',{class:'row'},name,cp,fb));upd()}});
+
+const nav=$('#nav'),main=$('#main');
+function show(id){nav.querySelectorAll('button').forEach(b=>b.setAttribute('aria-selected',b.dataset.id===id));main.innerHTML='';const c=h('section',{class:'card'});main.append(c);tabs.find(t=>t.id===id).render(c)}
+tabs.forEach(t=>nav.append(h('button',{role:'tab','data-id':t.id,onclick:()=>show(t.id)},t.short)));
+show('t1');
+</script>
+</body>
+</html>
